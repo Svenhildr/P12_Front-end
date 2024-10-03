@@ -1,0 +1,124 @@
+.employee-list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    table {
+        text-align: center;
+        border-collapse: collapse;
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        th {
+            border: 2px solid #8e8f8f;
+            font-weight: bold;
+            text-align: justify;
+            text-align: center;
+            padding: 10px;
+            vertical-align: top;
+            background-color: #3fd08c;
+        }
+
+        td {
+            border: 1px solid #8e8f8f;
+            text-align: justify;
+            padding: 10px;
+            vertical-align: top;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #70e8b6;
+        }
+    }
+}
+
+.currentEmployeeTitle {
+    text-align: center;
+    margin: 40px auto;
+}
+
+.home-link {
+    display: inline-block; /* S'assure que le lien est traité comme un élément de bloc */
+    margin: 0 auto;
+    max-width: 70px;
+    background-color: #3fd08c;
+    color: white;
+    border: none;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 5px;
+    padding: 10px 10px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.1) 2.4px 2.4px 4.2px;
+}
+
+.filter-container {
+    margin-bottom: 20px;
+    width: 95%;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    padding-right: 100px;
+    .p-inputtext {
+        width: 200px;
+        // padding-left: 30px;
+        border-radius: 5px;
+        padding: 5px 5px 5px 30px;
+    }
+    .search-icon {
+        position: absolute;
+        right: 275px; /* Positionnez l'icône à gauche */
+        top: 50%;
+        transform: translateY(-50%); /* Centrez verticalement l'icône */
+        color: #888;
+    }
+    .p-dropdown {
+        margin-left: 5.2%;
+        width: 170px;
+        background-color: #3fd08c;
+        .p-dropdown-panel {
+            background-color: rgb(223, 17, 17) !important;
+            border: 1px solid #2e10d3;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000 !important;
+
+            // Cibler le wrapper d'items
+            .p-dropdown-items-wrapper {
+                background-color: rgb(223, 17, 17) !important; // Appliquez aussi ici si nécessaire
+                max-height: 200px; // Assurez-vous que le wrapper n'a pas de hauteur fixe
+            }
+        }
+
+        .p-dropdown-item {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px;
+
+            &:hover {
+                background-color: #f0f0f0;
+            }
+        }
+    }
+}
+// .row-dropdown {
+//     margin-left: 50px;
+//     width: 130px;
+//     background-color: #fff; // Fond du Dropdown
+//     border: 1px solid #ccc; // Bordure pour le Dropdown
+//     border-radius: 4px;
+//     .p-dropdown-panel {
+//         background-color: rgba(255, 255, 255, 1); // Fond blanc opaque pour le menu déroulant
+//         border: 1px solid #ccc; // Bordure pour le menu déroulant
+//         border-radius: 4px; // Pour arrondir les bords
+//         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Ombre pour le menu déroulant
+//     }
+//     .p-dropdown-items-wrapper {
+//         &:hover {
+//             background-color: #f0f0f0; // Changer de couleur au survol
+//         }
+//     }
+// }

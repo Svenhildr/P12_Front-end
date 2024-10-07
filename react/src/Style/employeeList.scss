@@ -40,7 +40,7 @@
 }
 
 .home-link {
-    display: inline-block; /* S'assure que le lien est traité comme un élément de bloc */
+    display: inline-block;
     margin: 0 auto;
     max-width: 70px;
     background-color: #3fd08c;
@@ -70,16 +70,16 @@
     }
     .search-icon {
         position: absolute;
-        right: 275px; /* Positionnez l'icône à gauche */
+        right: 275px;
         top: 50%;
-        transform: translateY(-50%); /* Centrez verticalement l'icône */
+        transform: translateY(-50%);
         color: #888;
     }
     .p-dropdown {
         margin-left: 5.2%;
         width: 170px;
         background-color: #3fd08c;
-        .p-dropdown-panel {
+        /* .p-dropdown-panel {
             background-color: rgb(223, 17, 17) !important;
             border: 1px solid #2e10d3;
             border-radius: 4px;
@@ -91,7 +91,7 @@
                 background-color: rgb(223, 17, 17) !important; // Appliquez aussi ici si nécessaire
                 max-height: 200px; // Assurez-vous que le wrapper n'a pas de hauteur fixe
             }
-        }
+        } */
 
         .p-dropdown-item {
             display: flex;
@@ -104,21 +104,3 @@
         }
     }
 }
-// .row-dropdown {
-//     margin-left: 50px;
-//     width: 130px;
-//     background-color: #fff; // Fond du Dropdown
-//     border: 1px solid #ccc; // Bordure pour le Dropdown
-//     border-radius: 4px;
-//     .p-dropdown-panel {
-//         background-color: rgba(255, 255, 255, 1); // Fond blanc opaque pour le menu déroulant
-//         border: 1px solid #ccc; // Bordure pour le menu déroulant
-//         border-radius: 4px; // Pour arrondir les bords
-//         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Ombre pour le menu déroulant
-//     }
-//     .p-dropdown-items-wrapper {
-//         &:hover {
-//             background-color: #f0f0f0; // Changer de couleur au survol
-//         }
-//     }
-// }

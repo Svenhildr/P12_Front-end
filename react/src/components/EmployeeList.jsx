@@ -1,65 +1,54 @@
-import { useEffect, useState } from "react";
-import { getEmployees } from "../data/EmployeeDatas";
+import React, { useEffect, useState } from "react";
+import { useForm } from "./FormContext";
 import { Link } from "react-router-dom";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputText } from "primereact/inputtext";
-import { Dropdown } from "primereact/dropdown";
+// import { Dropdown } from "primereact/dropdown";
 import "../Style//employeeList.scss";
-// import "primeicons/primeicons.css";
+
+/**
+ * Component EmployeeList to display employees list pour afficher with pagination and search input.
+ *
+ * @component
+ * @returns {JSX.Element}  employees datas table with a global filter and pagination.
+ *
+ * @example
+ * <EmployeeList />
+ *
+ * @description uses `useState` et `useEffect`  to manage employees datas and apply a global filter for search.
+ * table uses `DataTable` from PrimeReact to display employees datas with pagination and options to change the number of rows.
+ *
+ * @see {@link https://www.primefaces.org/primereact/showcase/#/datatable|PrimeReact DataTable Documentation}
+ */
 
 const EmployeeList = () => {
-    const [employees, setEmployees] = useState([]);
+    const { employees } = useForm();
+    const [globalFilterValue, setGlobalFilterValue] = useState("");
+
     const [filters, setFilters] = useState({
         global: { value: null, matchMode: "contains" }
     });
-    const [globalFilterValue, setGlobalFilterValue] = useState("");
-    const [rows, setRows] = useState(15);
-
-    useEffect(() => {
-        const employeeData = getEmployees();
-        setEmployees(employeeData);
-    }, []);
 
     const onGlobalFilterChange = (e) => {
         const value = e.target.value;
-        let _filters = { ...filters };
+        let updatedFilters = { ...filters };
+        updatedFilters["global"].value = value;
 
-        _filters["global"].value = value;
-
-        setFilters(_filters);
+        setFilters(updatedFilters);
         setGlobalFilterValue(value);
     };
 
-    const onRowsChange = (e) => {
-        setRows(e.value);
-    };
-
     const renderHeader = () => {
-        return <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Search..." className="p-inputtext" />;
-    };
-
-    const rowOptions = [
-        { label: "10", value: 10 },
-        { label: "25", value: 25 },
-        { label: "50", value: 50 },
-        { label: "100", value: 100 }
-    ];
-
-    const renderRowOptions = () => {
-        const displayLabel = rows ? `Show ${rows} entries` : "Select rows";
         return (
-            <Dropdown
-                variant="filled"
-                value={rows}
-                options={rowOptions}
-                onChange={(e) => setRows(e.value)}
-                placeholder={displayLabel}
-                className="row-dropdown"
-                appendTo={document.getElementById("filter-container")}
-            />
+            <div className="search-container">
+                <InputText value={globalFilterValue} onChange={onGlobalFilterChange} placeholder="Search..." className="p-inputtext" />
+                <i className="pi pi-search search-icon"></i>
+            </div>
         );
     };
+
+    const header = renderHeader();
 
     return (
         <div className="employee-list-container">
@@ -81,9 +70,9 @@ const EmployeeList = () => {
             >
                 <Column field="firstName" header="First Name" sortable />
                 <Column field="lastName" header="Last Name" sortable />
-                <Column field="dateOfBirth" header="Date of Birth" body={(rowData) => new Date(rowData.dateOfBirth).toLocaleDateString()} sortable />
-                <Column field="startDate" header body={(rowData) => new Date(rowData.startDate).toLocaleDateString()} sortable />
+                <Column field="startDate" header="Start Date" body={(rowData) => new Date(rowData.startDate).toLocaleDateString()} sortable />
                 <Column field="department" header="Department" sortable />
+                <Column field="dateOfBirth" header="Date of Birth" body={(rowData) => new Date(rowData.dateOfBirth).toLocaleDateString()} sortable />
                 <Column field="street" header="Street" sortable />
                 <Column field="city" header="City" sortable />
                 <Column field="state" header="State" sortable />

@@ -1,21 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "./FormContext";
 import StateSelect from "./StateSelect";
 import { Calendar } from "primereact/calendar";
-import { saveEmployee } from "../data/EmployeeDatas";
 import { Link } from "react-router-dom";
+import Modal from "success-modal-hrnet/src/lib/Modalsuccess";
 import "../Style/createEmployee.scss";
 
 /**
- * Composant CreateEmployee tp create a new employee.
- *
+ * CreateEmployee Component
+ * 
  * @component
- * @returns {JSX.Element} creation form is submited.
+ * 
+ * @description This component renders a form for creating a new employee. It uses the form data from a global form 
+ * context, allowing the user to input personal information, address, and department. On form submission, 
+ * the employee data is saved.
+ * 
+ * @returns {JSX.Element} The employee creation form.
+
+ * 
+ * @description The form consists of inputs for the employee's first and last name, birthdate, start date, 
+ * address fields (street, city, state, zip code), and department selection. 
+ * The user input is handled by `handleChange` for regular inputs and `handleDateChange` for date inputs.
  */
 
 const CreateEmployee = () => {
-    const { form, setForm } = useForm();
+    const { form, setForm, addEmployee } = useForm();
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
+    /**
+     * Handle input changes and update the form state
+     *
+     * @param {Object} e - The input change event
+     */
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm((prevForm) => ({
@@ -24,6 +40,13 @@ const CreateEmployee = () => {
         }));
     };
 
+    /**
+     * Handle date changes and update the form state
+     *
+     * @param {string} name - The name of the date field (e.g., 'dateOfBirth', 'startDate')
+     * @param {Date} value - The selected date value
+     */
+
     const handleDateChange = (name, value) => {
         setForm((prevForm) => ({
             ...prevForm,
@@ -31,10 +54,15 @@ const CreateEmployee = () => {
         }));
     };
 
+    //form submit
     const handleSubmit = (e) => {
         e.preventDefault();
-        saveEmployee(form);
-        alert("Employee Created!");
+        addEmployee(form);
+        setIsModalVisible(true);
+    };
+
+    const closeModal = () => {
+        setIsModalVisible(false);
     };
 
     return (
@@ -67,7 +95,7 @@ const CreateEmployee = () => {
                     <input type="text" id="city" name="city" value={form.city} onChange={handleChange} required />
 
                     <label htmlFor="state">State</label>
-                    <StateSelect value={form.state} onChange={(e) => handleChange(e)} />
+                    <StateSelect value={form.state} onChange={(e) => handleChange({ target: { name: "state", value: e.value } })} />
 
                     <label htmlFor="zip-code">Zip Code</label>
                     <input type="number" id="zip-code" name="zipCode" value={form.zipCode} onChange={handleChange} required />
@@ -87,6 +115,7 @@ const CreateEmployee = () => {
                     Save
                 </button>
             </form>
+            <Modal isVisible={isModalVisible} onClose={closeModal} message="Employee Created!" />
         </div>
     );
 };
